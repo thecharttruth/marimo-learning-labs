@@ -1,0 +1,4 @@
+interface:
+  display_name: "Teaching Notebook Builder"
+  short_description: "Build clear teaching-first notebooks"
+  default_prompt: "Use $teaching-notebook-builder to make this notebook teach the subject clearly."

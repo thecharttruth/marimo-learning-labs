@@ -1,0 +1,49 @@
+title: Global Macro Opportunity Set Lab
+slug: global-macro-opportunity-set-lab
+domain: trading
+status: active
+audience:
+  - systematic-trading learners
+  - portfolio-research beginners
+  - machine-learning students
+cloud:
+  molab_session_url: https://sb-5c296059d691d8f3.sb.molab.run/
+github:
+  repo: null
+  notebook_url: null
+  pages_url: null
+blog:
+  draft: blog/draft.md
+  status: not-started
+data:
+  source: yfinance
+  private_data_required: false
+secrets:
+  required: false
+  notes: Pairing tokens must not be stored in this project.
+sync:
+  authority: local
+  molab_url: https://molab.marimo.io/notebooks/nb_zqgCtqNFZUnVPmbT6dxgCL
+  cloud_kind: catalog
+  tool: scripts/molab-sync.py
+  notes: Pull after MoLab edits; push before sharing. Sandbox URLs expire when the session stops.
+tags:
+  - marimo
+  - portfolio-allocation
+  - global-macro
+  - managed-futures
+  - commodities
+  - rates
+  - international-equities
+  - opportunity-set
+  - inception-safe
+  - spy-benchmark
+  - trading-education
+  - high-school-friendly
+last_verified: 2026-06-21
+notes:
+  - Created as a sibling project to autogluon-allocation-learning-lab.
+  - Purpose is to test non-SPY opportunity sets before adding AutoGluon.
+  - Local source of truth lives in this folder; MoLab is the execution and sharing surface.
+  - 2026-06-21 cloud smoke run passed local and cloud strict checks. Managed-futures sleeves did not beat SPY on raw return but improved Sharpe and drawdown. Report saved at reports/2026-06-21-cloud-smoke-run.md.
+  - 2026-06-21 pushed and verified against the newer MoLab session URL; cloud and local notebook cell-code hashes matched, and the saved cloud /marimo/notebook.py passed py_compile plus marimo check --strict.

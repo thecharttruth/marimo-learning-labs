@@ -1,0 +1,4 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/notebooks/trading/global-macro-opportunity-set-lab/.venv/bin/python",
+  "python.terminal.activateEnvironment": true
+}

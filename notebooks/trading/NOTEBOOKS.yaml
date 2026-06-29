@@ -1,0 +1,48 @@
+# Catalog of marimo notebook projects under notebooks/trading/.
+# Local folders are the durable backup. GitHub is the public code source of truth.
+# MoLab URLs are execution surfaces (mirror from GitHub when possible).
+# Sync policy: notebooks/trading/SYNC.md  |  Tool: scripts/molab-sync.py
+# Profile publish: scripts/molab-profile.sh (creates catalog nb_* URLs)
+#
+# Add a new notebook:
+#   1. Create notebooks/trading/<slug>/notebook.py (+ README, metadata.yaml)
+#   2. Append a project block below (cloud_kind: unpublished)
+#   3. ./scripts/molab-profile.sh publish --slug <slug>
+#
+# When pairing on cloud, confirm the URL matches the intended slug before editing.
+
+sync_policy:
+  authority: local
+  tool: scripts/molab-sync.py
+  verify: cell-body sha256 hash (ignores MoLab PEP723 wrapper drift)
+
+projects:
+  - slug: global-macro-opportunity-set-lab
+    title: Global Macro Opportunity Set Lab
+    local_path: notebooks/trading/global-macro-opportunity-set-lab
+    molab_url: https://molab.marimo.io/notebooks/nb_zqgCtqNFZUnVPmbT6dxgCL
+    github_url: https://github.com/thecharttruth/marimo-learning-labs/tree/main/notebooks/trading/global-macro-opportunity-set-lab
+    cloud_kind: catalog
+    status: active
+    role: benchmark gate before ML; ETF universe scans
+
+  - slug: autogluon-allocation-learning-lab
+    title: AutoGluon Portfolio Allocation Learning Lab
+    local_path: notebooks/trading/autogluon-allocation-learning-lab
+    molab_url: https://molab.marimo.io/notebooks/nb_dqdkCXtD93dSyuxLXgnQJD
+    github_url: https://github.com/thecharttruth/marimo-learning-labs/tree/main/notebooks/trading/autogluon-allocation-learning-lab
+    cloud_kind: catalog
+    status: active
+    role: ML allocation workflow; walk-forward AutoGluon overlay
+
+  - slug: btc-adaptive-supertrend-lab
+    title: BTC Adaptive Supertrend Lab
+    local_path: notebooks/trading/btc-adaptive-supertrend-lab
+    molab_url: https://molab.marimo.io/notebooks/nb_C7ABE1JaBKAWZCgCtVLVTp
+    github_url: https://github.com/thecharttruth/marimo-learning-labs/tree/main/notebooks/trading/btc-adaptive-supertrend-lab
+    cloud_kind: catalog
+    status: active
+    role: BTC daily research; Coinbase + yfinance data; adaptive supertrend prototype
+    sync_note: >-
+      Pulled 2026-06-24. Cloud copy may still have duplicate cells until cleaned locally
+      and pushed back with molab-sync.py push.

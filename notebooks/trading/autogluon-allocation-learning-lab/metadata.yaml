@@ -1,0 +1,73 @@
+title: AutoGluon Portfolio Allocation Learning Lab
+slug: autogluon-allocation-learning-lab
+domain: trading
+status: active
+audience:
+  - machine-learning students
+  - systematic-trading learners
+  - portfolio-research beginners
+cloud:
+  molab_notebook_url: https://molab.marimo.io/notebooks/nb_dqdkCXtD93dSyuxLXgnQJD
+  current_catalog_title: green-anteater
+  intended_title: AutoGluon Portfolio Allocation Learning Lab
+github:
+  repo: null
+  notebook_url: null
+  pages_url: null
+blog:
+  draft: blog/draft.md
+  status: outline
+data:
+  source: yfinance
+  private_data_required: false
+secrets:
+  required: false
+  notes: No API keys or tokens should be stored in this project.
+sync:
+  authority: local
+  molab_url: https://molab.marimo.io/notebooks/nb_dqdkCXtD93dSyuxLXgnQJD
+  cloud_kind: catalog
+  tool: scripts/molab-sync.py
+  notes: Catalog notebook is more durable than sandbox URLs; still pull back to local after edits.
+tags:
+  - marimo
+  - autogluon
+  - portfolio-allocation
+  - walk-forward-validation
+  - purged-validation
+  - embargoed-validation
+  - spy-benchmark
+  - spy-hurdle
+  - spy-overlay
+  - transaction-costs
+  - out-of-sample
+  - two-year-oos
+  - cache-provenance
+  - trading-education
+  - machine-learning
+  - high-school-friendly
+last_verified: 2026-06-21
+notes:
+  - Local notebook source was pulled from the live paired marimo runtime.
+  - MoLab content is updated, but catalog title may still need to be renamed in the authenticated UI.
+  - Execution preference is local-source/cloud-execution: local notebook.py is durable and MoLab is used for execution and sharing.
+  - MoLab notebook was updated and saved through marimo pair on 2026-06-20; saved cloud file contained optimizer, feature-depth controls, pair factors, and GPU guidance.
+  - MoLab notebook was updated and pulled back on 2026-06-20 with SPY and 60/40 benchmarks, 0 bps default cost sensitivity, one-trading-day execution lag, performance summary, out-of-sample gate, and prediction diagnostics.
+  - Local repair on 2026-06-20 reverted an app.setup rewrite that marimo check flagged; imports now live in a normal marimo cell again.
+  - Round 2 repair on 2026-06-20: updated stale backtest and equity visualization markdowns to include SPY and 60/40 SPY/IEF benchmarks, kept itertools.combinations in the normal import cell, restored cloud-compatible polars rolling_std calls in build_features, added mo.persistent_cache to yfinance downloads, completed the PEP 723 dependency header, and hidden the strategy_order configuration cell.
+  - Round 3 cloud update on 2026-06-20 added explicit research, 2025 validation, and 2026 final-OOS calendar controls; defaulted the report to three final-OOS splits; constrained optimizer scoring to the validation window; added adaptive retraining diagnostics; and masked backtest returns to selected prediction windows before metrics are computed.
+  - 2026-06-21 cloud analysis ran depth-2 features with a bounded validation optimizer, then applied the selected 10-day forward/10-day rebalance/3-year train/35% max-weight/200 MC setting to all eligible 2026 final-OOS splits available through 2026-05-28.
+  - 2026-06-21 local repair added an AutoGluon model-mode selector with Auto GPU-rich, Fast CPU trees, and GPU rich model choices.
+  - 2026-06-21 autonomous GPU follow-up added per-asset AutoGluon backend metadata, an AutoGluon backend diagnostics table, runtime-aware optional rich model selection, and autogluon.tabular[all] in the PEP 723 dependency header.
+  - 2026-06-21 validation-safety pass added a configurable embargo gap, routed optimizer and report splits through the same purged/embargoed walk-forward splitter, and confirmed no random train/test split is used.
+  - 2026-06-21 teaching pass added a plain-English map/glossary and simplified explanations for controls, features, walk-forward validation, AutoGluon training, allocation, backtest metrics, diagnostics, and charts.
+  - Local py_compile, marimo check --strict, and secret/random-split scan passed after the teaching pass.
+  - 2026-06-21 fresh MoLab pair session was updated from local notebook.py through marimo code-mode; cloud and local cell/config hashes matched, and cloud-side py_compile plus marimo check --strict passed.
+  - 2026-06-21 speed cleanup kept vectorized Polars feature construction and made the shared cross-asset AutoGluon forecaster the only forecast path, reducing model fits to one fit per split.
+  - 2026-06-21 strategy and visualization pass changed ML allocation into a conservative forecast tilt around a diversified equal-weight/risk-parity anchor, raised the split cap for full-history walk-forward runs, and colored the ML-MC equity curve by research, validation, and final-OOS stage.
+  - Local notebook.py is now the durable source of truth. MoLab is an execution and sharing surface; raw file hashes may differ when MoLab normalizes script dependency metadata.
+  - 2026-06-21 two-year final-OOS test added ticker/date-aware market-data cache keys, an explicit active-date filter, a Final OOS/report end control, and after-selected-OOS chart staging. Cloud run scored 34 rebalance windows from 2024-01-15 through 2025-12-28; ML-MC returned 44.58% with Sharpe 1.51 and max drawdown -15.04%, but SPY, equal weight, and risk parity were stronger. Report saved at reports/2026-06-21-two-year-final-oos.md.
+  - 2026-06-21 benchmark-discipline pass made SPY the hard hurdle. That first gate targeted ML-MC; the later overlay redesign superseded it by making SPY+ML Overlay the deployable strategy and gate target.
+  - 2026-06-21 overlay redesign added SPY+ML Overlay as the deployable strategy: it starts at 100% SPY and ML can only move a capped sleeve into defensive assets when the SPY forecast and cross-asset breadth weaken. Optimizer scoring, allocation charts, diagnostics, and the final OOS gate now evaluate this overlay against SPY.
+  - 2026-06-21 overlay smoke run on the active 2026 final-OOS slice passed the overlay-vs-SPY gate but did not beat equal weight; results saved at reports/2026-06-21-spy-overlay-redesign.md.
+  - 2026-06-21 long 2024-2026 final-OOS cloud run covered 40 rebalance splits from 2024-01-15 through 2026-05-03 with GPU-rich AutoGluon fits. SPY+ML Overlay barely beat SPY on CAGR and Sharpe, had effectively the same drawdown, weak hit rate versus SPY, and weaker risk-adjusted performance than equal weight/risk parity. Report saved at reports/2026-06-21-long-oos-2024-2026.md.

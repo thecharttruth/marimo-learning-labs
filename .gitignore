@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+notebooks/**/.venv/
+
+# Node (MoLab browser automation)
+scripts/node_modules/
+
+# marimo/runtime
+.marimo/
+.marimo_cache/
+**/__marimo__/cache/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.secret
+credentials.json
+
+# Generated exports and local scratch
+*.log
+tmp/
+.DS_Store
+._*
+.molab-import/
+
+# Large or private datasets
+data/raw/
+data/private/
+*.db
+*.sqlite
+*.parquet
+*.feather
+*.h5
+
+# Keep explicit project data docs
+!notebooks/**/data/README.md

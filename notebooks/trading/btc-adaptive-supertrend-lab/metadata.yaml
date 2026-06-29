@@ -1,0 +1,42 @@
+title: BTC Adaptive Supertrend Lab
+slug: btc-adaptive-supertrend-lab
+domain: trading
+status: cloud-primary
+audience:
+  - crypto research
+  - systematic-trading learners
+cloud:
+  molab_session_url: https://sb-8e1f27f556b2f563.sb.molab.run/
+github:
+  repo: null
+  notebook_url: null
+  pages_url: null
+blog:
+  draft: blog/draft.md
+  status: not-started
+data:
+  source: coinbase,yfinance
+  private_data_required: false
+secrets:
+  required: false
+  notes: Use MARIMO_TOKEN via environment for pairing only. Never store tokens in files.
+sync:
+  authority: local
+  molab_url: https://molab.marimo.io/notebooks/nb_C7ABE1JaBKAWZCgCtVLVTp
+  cloud_kind: catalog
+  tool: scripts/molab-sync.py
+  notes: Pulled 2026-06-24. Push cleaned notebook back when strict check passes.
+tags:
+  - marimo
+  - bitcoin
+  - supertrend
+  - coinbase
+  - altair
+  - experimental
+last_verified: 2026-06-24
+notes:
+  - 2026-06-24 local backup folder created from active MoLab session sb-8e1f27f556b2f563.
+  - 2026-06-24 pulled notebook.py (1119 lines) via marimo-pair read of /marimo/notebook.py on cloud kernel.
+  - Cloud notebook is separate from global-macro-opportunity-set-lab and autogluon-allocation-learning-lab.
+  - Known cloud issues before pull-back: duplicate chart/import cells, NameError for _yf, multiply-defined graph variables.
+  - Pull with scripts/pull-molab-notebook.sh then promote local to source of truth after strict check passes.
