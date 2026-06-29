@@ -36,6 +36,35 @@ Then in MoLab: **New notebook → Mirror from GitHub** (or re-sync an existing m
 
 `https://github.com/thecharttruth/marimo-learning-labs/blob/main/notebooks/trading/<slug>/notebook.py`
 
+## MoLab display names
+
+GitHub mirrors use `{slug}.py` (symlink to `notebook.py`) so cards are not all labeled `notebook.py`.
+
+**Rename to these titles in MoLab** (or run `./scripts/molab-rename.sh`):
+
+| Slug | MoLab title |
+|------|-------------|
+| `global-macro-opportunity-set-lab` | **Global Macro Opportunity Set Lab** |
+| `autogluon-allocation-learning-lab` | **AutoGluon Portfolio Allocation Learning Lab** |
+| `btc-adaptive-supertrend-lab` | **BTC Adaptive Supertrend Lab** |
+
+Delete duplicate `notebook.py` cards in MoLab if you mirrored twice — keep one per slug.
+
+## MoLab GitHub mirror (auto-sync)
+
+One-time setup for each notebook:
+
+```bash
+./scripts/molab-github-mirror.sh login    # once, if Chrome session expired
+./scripts/molab-github-mirror.sh mirror   # all three trading labs
+```
+
+After that, **only `git push` is required** — MoLab synced notebooks pull from GitHub automatically.
+
+Stable share links (no login, tracks `main`):
+
+`https://molab.marimo.io/github/thecharttruth/marimo-learning-labs/blob/main/notebooks/trading/<slug>/notebook.py`
+
 ## MoLab profile URLs
 
 Catalog URLs (`nb_*`) live in `notebooks/trading/NOTEBOOKS.yaml` and each project's `metadata.yaml`. GitHub is source of truth for **code**; MoLab is the **execution surface**.

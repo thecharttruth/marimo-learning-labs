@@ -2,7 +2,8 @@
 # Local folders are the durable backup. GitHub is the public code source of truth.
 # MoLab URLs are execution surfaces (mirror from GitHub when possible).
 # Sync policy: notebooks/trading/SYNC.md  |  Tool: scripts/molab-sync.py
-# Profile publish: scripts/molab-profile.sh (creates catalog nb_* URLs)
+# Profile publish: scripts/molab-profile.sh (upload import → catalog nb_* URLs)
+# GitHub mirror:   scripts/molab-github-mirror.sh mirror (synced notebooks, auto-update on push)
 #
 # Add a new notebook:
 #   1. Create notebooks/trading/<slug>/notebook.py (+ README, metadata.yaml)

@@ -44,7 +44,12 @@ export async function closeMolabBrowser(session) {
   if (session.mode === "launch") {
     await session.context.close();
   } else if (session.browser) {
-    await session.browser.close();
+    // CDP: disconnect Playwright only; leave the user's Chrome running.
+    try {
+      await session.browser.close();
+    } catch {
+      /* ignore disconnect errors */
+    }
   }
 }
 
