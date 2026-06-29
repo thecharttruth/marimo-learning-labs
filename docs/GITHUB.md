@@ -26,9 +26,9 @@ rg -i 'api[_-]?key|secret|password|ghp_|gho_|sk-[a-zA-Z0-9]{10,}' notebooks/ scr
 
 ```bash
 cd /Volumes/CORSAIR/Marimo
-git status
-git add notebooks/trading/<slug>/notebook.py   # or git add -A for full library changes
-git commit -m "Update <slug> notebook"
+./scripts/github-sync-slug-files.sh   # refresh {slug}.py copies from notebook.py
+git add notebooks/trading/*/*.py
+git commit -m "Update notebooks"
 git push
 ```
 
@@ -38,7 +38,7 @@ Then in MoLab: **New notebook → Mirror from GitHub** (or re-sync an existing m
 
 ## MoLab display names
 
-GitHub mirrors use `{slug}.py` (symlink to `notebook.py`) so cards are not all labeled `notebook.py`.
+GitHub mirrors use `{slug}.py` (a real copy of `notebook.py`) so MoLab cards are not all labeled `notebook.py`. Run `./scripts/github-sync-slug-files.sh` before each push to keep copies in sync.
 
 **Rename to these titles in MoLab** (or run `./scripts/molab-rename.sh`):
 
