@@ -12,7 +12,10 @@ This marimo notebook teaches a complete machine-learning trading research workfl
 
 ## Notebook
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/thecharttruth/marimo-learning-labs/blob/main/notebooks/trading/autogluon-allocation-learning-lab/google-colab-autogluon-portfolio-allocation-learning-lab.ipynb)
+
 - Local source: `notebook.py`
+- Google Colab notebook: `google-colab-autogluon-portfolio-allocation-learning-lab.ipynb`
 - Cloud notebook: https://molab.marimo.io/notebooks/nb_dqdkCXtD93dSyuxLXgnQJD
 - Latest cloud save verified: 2026-06-21
 - Latest local verification: 2026-06-21 (`py_compile`, `marimo check --strict`, cloud strict check, secret/random-split scan)
