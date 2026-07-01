@@ -4,6 +4,12 @@ This folder is the local source-of-truth library for marimo notebooks, related a
 
 Cloud notebooks are for execution, demos, collaboration, and sharing. Local notebook project folders are for version control, recovery, editing history, blog writing, and reproducible publishing.
 
+## Open in Colab
+
+[![Open AutoGluon Lab In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/thecharttruth/marimo-learning-labs/blob/main/notebooks/trading/autogluon-allocation-learning-lab/google-colab-autogluon-portfolio-allocation-learning-lab.ipynb)
+
+- AutoGluon Portfolio Allocation Learning Lab: [`google-colab-autogluon-portfolio-allocation-learning-lab.ipynb`](notebooks/trading/autogluon-allocation-learning-lab/google-colab-autogluon-portfolio-allocation-learning-lab.ipynb)
+
 ## Layout
 
 ```text
