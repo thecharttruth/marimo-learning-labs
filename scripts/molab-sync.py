@@ -22,6 +22,7 @@ import subprocess
 import sys
 import tempfile
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -75,18 +76,61 @@ def _sync_state_path(project: dict) -> Path:
     return REPO_ROOT / project["local_path"] / ".sync" / "state.json"
 
 
+def _validate_execution_url(url: str) -> str:
+    """Only send notebook credentials to MoLab HTTPS or a local marimo server."""
+    if not isinstance(url, str) or any(c.isspace() for c in url) or "\\" in url:
+        raise SystemExit("Invalid notebook server URL.")
+    try:
+        parsed = urllib.parse.urlsplit(url)
+        host = parsed.hostname or ""
+        port = parsed.port
+    except ValueError:
+        raise SystemExit("Invalid notebook server URL.") from None
+    if parsed.username is not None or parsed.password is not None or parsed.query or parsed.fragment:
+        raise SystemExit("Notebook server URLs must not contain credentials, a query, or a fragment.")
+    local = host in {"localhost", "127.0.0.1", "::1"}
+    molab = host == "sb.molab.run" or host.endswith(".sb.molab.run")
+    if not ((local and parsed.scheme in {"http", "https"}) or
+            (molab and parsed.scheme == "https" and port in {None, 443})):
+        raise SystemExit("Notebook credentials require a trusted HTTPS *.sb.molab.run URL or a loopback server.")
+    return urllib.parse.urlunsplit(parsed).rstrip("/")
+
+
+def _origin(url: str) -> tuple[str, str | None, int | None]:
+    parsed = urllib.parse.urlsplit(url)
+    return parsed.scheme, parsed.hostname, parsed.port or (443 if parsed.scheme == "https" else 80)
+
+
+class _SameOriginRedirectHandler(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        # urllib normally copies Authorization to the redirected request.
+        # Block BEFORE creating or issuing a request to another origin.
+        try:
+            same_origin = _origin(req.full_url) == _origin(newurl)
+        except ValueError:
+            same_origin = False
+        if not same_origin:
+            raise urllib.error.HTTPError(
+                req.full_url, code,
+                "Refusing to forward notebook credentials to a different origin",
+                headers, fp,
+            )
+        _validate_execution_url(newurl)
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
 def _execution_url(project: dict, override: str | None) -> str:
     if override:
-        return override.rstrip("/")
+        return _validate_execution_url(override)
     state_path = _sync_state_path(project)
     if state_path.exists():
         state = json.loads(state_path.read_text(encoding="utf-8"))
         cached = state.get("execution_url", "")
         if cached:
-            return cached.rstrip("/")
+            return _validate_execution_url(cached)
     url = project.get("molab_url", "").rstrip("/")
     if "sb.molab.run" in url:
-        return url
+        return _validate_execution_url(url)
     raise SystemExit(
         f"Catalog URL {url} is not a live marimo server. "
         "Open the notebook in MoLab, copy the sb-*.sb.molab.run URL from the browser, "
@@ -106,6 +150,7 @@ def _cell_code_hash(text: str) -> str:
 
 
 def _http_get(url: str, token: str, path: str) -> tuple[int, bytes]:
+    url = _validate_execution_url(url)
     req = urllib.request.Request(
         f"{url.rstrip('/')}{path}",
         headers={
@@ -114,7 +159,8 @@ def _http_get(url: str, token: str, path: str) -> tuple[int, bytes]:
         },
     )
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
+        opener = urllib.request.build_opener(_SameOriginRedirectHandler())
+        with opener.open(req, timeout=30) as resp:
             return resp.status, resp.read()
     except urllib.error.HTTPError as exc:
         return exc.code, exc.read()
@@ -140,6 +186,7 @@ def _session_id(url: str, token: str, explicit: str | None) -> str:
 
 
 def _run_execute(url: str, token: str, session_id: str, code: str) -> str:
+    url = _validate_execution_url(url)
     if not EXECUTE_CODE.exists():
         raise SystemExit(f"Missing execute-code helper: {EXECUTE_CODE}")
     env = {**dict(**__import__("os").environ), "MARIMO_TOKEN": token}

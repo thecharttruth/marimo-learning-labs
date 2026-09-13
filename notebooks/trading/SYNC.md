@@ -96,3 +96,15 @@ An agent must not call a notebook “synced” until:
 - Set `MARIMO_TOKEN` in the environment only.
 - Never commit tokens to git.
 - See repo-root `.env.example`.
+
+## Credential destination checks
+
+`molab-sync.py` sends notebook credentials only to HTTPS `*.sb.molab.run`
+servers on the standard HTTPS port, or to loopback marimo servers. This check
+applies to catalog URLs, cached execution URLs and `--url` overrides. URLs
+containing user information, queries or fragments are rejected. Redirects
+may remain on the same origin; redirects to another host, port or protocol
+are refused before sending any credentials to the destination.
+
+Run `python3 -m unittest discover -s scripts -p 'test_*.py' -v` for the
+portable security regression tests.
